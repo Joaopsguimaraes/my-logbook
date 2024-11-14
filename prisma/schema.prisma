@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Logbook {
+  id           String       @id @default(uuid())
+  userId       String
+  name         String
+  exercise     String
+  exerciseType ExerciseType
+  weight       Float
+  reps         Int
+  annotation   String
+  hasProgress  Boolean
+  date         DateTime
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+enum ExerciseType {
+  LEGS
+  BACK
+  SHOULDERS
+  CHEST
+  ARMS
+}
