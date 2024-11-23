@@ -1,19 +1,6 @@
 import { Button } from '@/components/ui/button'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -21,26 +8,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { cn } from '@/lib/utils'
 import type { MuscleGroup } from '@prisma/client'
-import { Check, ChevronsUpDown } from 'lucide-react'
 import { useExercise } from '../../hooks/useExercise'
 import { useExerciseForm } from '../../hooks/useExerciseForm'
 
-import { useState } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
 import { MUSCLE_GROUP_OPTIONS } from '@/constants/muscle-group-options'
+import { SelectExerciseCombobox } from './select-exercise-combobox'
 
 export function ExerciseForm() {
-  const {
-    muscleExercisesOptions,
-    addExercise,
-    addMuscleExercise,
-    isLoadingExercises,
-    isLoadingRegisterMuscleExercise,
-  } = useExercise()
+  const { addExercise } = useExercise()
   const { exerciseForm, updateField, clearForm } = useExerciseForm()
-  const [registerExercise, setRegisterExercise] = useState('')
 
   const handleAddExercise = () => {
     const {
@@ -70,90 +47,7 @@ export function ExerciseForm() {
 
   return (
     <div className="flex w-full flex-col gap-5">
-      <div className="flex w-full flex-col gap-2">
-        <span className="text-sm font-medium">Exercício</span>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                'w-full justify-between',
-                !exerciseForm.exerciseId && 'text-muted-foreground',
-              )}
-            >
-              {exerciseForm.exerciseId
-                ? muscleExercisesOptions.find(
-                    (opt) => opt.value === exerciseForm.exerciseId,
-                  )?.label
-                : 'Selecione o exercício'}
-              <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[400px] p-0">
-            <Command>
-              <CommandInput
-                placeholder="Pesquise o exercício..."
-                value={registerExercise}
-                onValueChange={(s) => setRegisterExercise(s.toUpperCase())}
-              />
-              <CommandList>
-                {isLoadingExercises || isLoadingRegisterMuscleExercise ? (
-                  <div className="space-y-2 p-2">
-                    {Array.from({ length: 1 }).map((_, i) => (
-                      <Skeleton key={i} className="h-10 w-full" />
-                    ))}
-                  </div>
-                ) : (
-                  <CommandEmpty>
-                    <Button
-                      className="w-full"
-                      variant="ghost"
-                      type="button"
-                      onClick={() => addMuscleExercise(registerExercise)}
-                    >
-                      Cadastrar{' '}
-                      <span className="underline underline-offset-2">
-                        {registerExercise}
-                      </span>{' '}
-                      ?
-                    </Button>
-                  </CommandEmpty>
-                )}
-                {isLoadingRegisterMuscleExercise ? (
-                  <div className="space-y-2 p-2">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Skeleton key={i} className="h-10 w-full" />
-                    ))}
-                  </div>
-                ) : (
-                  <CommandGroup>
-                    {muscleExercisesOptions.map(({ label, value }) => (
-                      <CommandItem
-                        key={value}
-                        value={label}
-                        onSelect={() => {
-                          updateField('exerciseName', label)
-                          updateField('exerciseId', value)
-                        }}
-                      >
-                        {label}
-                        <Check
-                          className={cn(
-                            'ml-auto',
-                            exerciseForm.exerciseId === value
-                              ? 'opacity-100'
-                              : 'opacity-0',
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        </Popover>
-      </div>
+      <SelectExerciseCombobox />
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium">Grupo muscular</span>
         <Select
@@ -178,6 +72,7 @@ export function ExerciseForm() {
           <Label>Series</Label>
           <Input
             type="number"
+            inputMode='numeric'
             placeholder="Ex.: 3"
             value={exerciseForm.exerciseSeries}
             onChange={(e) => updateField('exerciseSeries', e.target.value)}
@@ -187,6 +82,7 @@ export function ExerciseForm() {
           <Label>Repetições</Label>
           <Input
             type="number"
+            inputMode='numeric'
             placeholder="Ex.: 10"
             value={exerciseForm.exerciseReps}
             onChange={(e) => updateField('exerciseReps', e.target.value)}
@@ -196,6 +92,7 @@ export function ExerciseForm() {
           <Label>Peso (KG)</Label>
           <Input
             type="number"
+            inputMode='numeric'
             placeholder="Ex.: 120"
             value={exerciseForm.exerciseWeight}
             onChange={(e) => updateField('exerciseWeight', e.target.value)}
