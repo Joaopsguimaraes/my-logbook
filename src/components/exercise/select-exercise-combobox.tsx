@@ -46,7 +46,7 @@ export function SelectExerciseCombobox() {
             <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[300px] p-0" side="bottom">
+        <PopoverContent className="w-[300px] p-0" side="bottom" avoidCollisions={false}>
           <Command>
             <CommandInput
               placeholder="Pesquise o exercício..."
