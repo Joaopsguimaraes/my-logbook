@@ -1,23 +1,20 @@
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
-import { AddWorkoutForm } from './add-workout-form'
 import { ExerciseProvider } from '@/context/exercise-provider'
-import { ScrollArea, ScrollBar } from '../ui/scroll-area'
+import { forwardRef, useImperativeHandle, useState } from 'react'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '../ui/sheet'
+import { AddWorkoutForm } from './add-workout-form'
 
-export type AddWorkoutDialogRef = {
+export type AddWorkoutDrawerRef = {
   handleOpen: (workoutId?: string) => void
   handleClose: () => void
 }
 
-export const AddWorkoutDialog = forwardRef<AddWorkoutDialogRef>((_, ref) => {
+export const AddWorkoutDrawer = forwardRef<AddWorkoutDrawerRef>((_, ref) => {
   const [workoutId, setWorkoutId] = useState<string | undefined>()
   const [open, setOpen] = useState(false)
 
@@ -36,24 +33,24 @@ export const AddWorkoutDialog = forwardRef<AddWorkoutDialogRef>((_, ref) => {
   }))
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="md:max-w-3xl">
-        <DialogHeader>
-          <DialogTitle>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>
             {workoutId ? 'Duplicar treino' : 'Adicionar treino'}
-          </DialogTitle>
-          <DialogDescription>
+          </SheetTitle>
+          <SheetDescription>
             {workoutId
               ? 'Duplique o treino, criando um novo baseado no treino selecionado, editando os exercícios, repetições, cargas e etc'
               : 'Adicione o treino, informado qual exercício e suas informações'}
-          </DialogDescription>
-        </DialogHeader>
+          </SheetDescription>
+        </SheetHeader>
         <ExerciseProvider>
           <AddWorkoutForm onModalClose={handleClose} workoutId={workoutId} />
         </ExerciseProvider>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   )
 })
 
-AddWorkoutDialog.displayName = 'AddWorkoutDialog'
+AddWorkoutDrawer.displayName = 'AddWorkoutDialog'

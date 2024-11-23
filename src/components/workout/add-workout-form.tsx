@@ -24,6 +24,7 @@ import { newWorkout } from '../../actions/new-workout'
 import { ExerciseForm } from '../exercise/exercise-form'
 import { SelectedExerciseTable } from '../exercise/exercise-list'
 import { useGetWorkoutFromId } from '@/hooks/use-get-workout-from-id'
+import { SheetClose, SheetFooter } from '../ui/sheet'
 
 interface Props {
   onModalClose: (open: boolean) => void
@@ -84,16 +85,16 @@ export function AddWorkoutForm({ onModalClose, workoutId }: Props) {
             <SelectedExerciseTable exercises={selectedExercises} />
           </div>
         </div>
-        <DialogFooter>
-          <DialogClose asChild>
+        <SheetFooter>
+          <SheetClose asChild>
             <Button type="button" variant="outline">
               Cancelar
             </Button>
-          </DialogClose>
+          </SheetClose>
           <Button variant="default" type="submit">
             Adicionar
           </Button>
-        </DialogFooter>
+        </SheetFooter>
       </form>
     </Form>
   )

@@ -10,12 +10,12 @@ import { MainNavigationLink } from './main-navigation-link'
 
 export function MainNav() {
   return (
-    <div className="mr-4 hidden md:flex pt-10">
+    <div className="mr-4 hidden md:flex">
       <Link
         href={PageRoutes.HOME}
-        className="mr-4 flex items-center space-x-2 lg:mr-6"
+        className="p-4 flex items-center space-x-2 lg:mr-6"
       >
-        <Image src="/logo.png" alt="My logbook" width={200} height={60} />
+        <Image src="/logo-nav.png" alt="Logo principal" width={80} height={80} />
       </Link>
       <nav className="hidden items-center gap-4 text-sm lg:gap-6">
         {mainNavigationConfig.map(({ label, path, isVisible }) => (

@@ -2,8 +2,8 @@
 
 import { useRef } from 'react'
 import {
-  AddWorkoutDialog,
-  type AddWorkoutDialogRef,
+  AddWorkoutDrawer,
+  type AddWorkoutDrawerRef,
 } from './add-workout-dialog'
 import { useWorkoutColumns } from './workout-table-columns'
 import { Card } from '../ui/card'
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function WorkoutList({ workout }: Props) {
-  const addWorkoutRef = useRef<AddWorkoutDialogRef>(null)
+  const addWorkoutRef = useRef<AddWorkoutDrawerRef>(null)
 
   function handleOpenDuplicateWorkout(workoutId: string) {
     addWorkoutRef.current?.handleOpen?.(workoutId)
@@ -42,7 +42,7 @@ export function WorkoutList({ workout }: Props) {
       <Card className="p-10">
         <DataTable columns={workoutColumns} data={workout} />
       </Card>
-      <AddWorkoutDialog ref={addWorkoutRef} />
+      <AddWorkoutDrawer ref={addWorkoutRef} />
     </div>
   )
 }

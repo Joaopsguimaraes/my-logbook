@@ -11,7 +11,7 @@ import { UserButton } from '@clerk/nextjs'
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-primary">
       <div className="container flex h-20 max-w-screen-2xl items-center">
         <MainNav />
         <MobileNav />
@@ -33,7 +33,7 @@ export function SiteHeader() {
                   'h-8 w-8 px-0',
                 )}
               >
-                <Icons.gitHub className="h-4 w-4" />
+                <Icons.gitHub className="text-white h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
@@ -47,10 +47,10 @@ export function SiteHeader() {
                   buttonVariants({
                     variant: 'ghost',
                   }),
-                  'h-8 w-8 px-0',
+                  'h-8 w-8 px-0 text-white',
                 )}
               >
-                <Icons.twitter className="h-3 w-3 fill-current" />
+                <Icons.twitter className="h-3 w-3 fill-white" />
                 <span className="sr-only">Twitter</span>
               </div>
             </Link>

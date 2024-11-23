@@ -13,7 +13,7 @@ export function MobileNav() {
         href={PageRoutes.HOME}
         className="flex items-center space-x-2 lg:mr-6"
       >
-        <Image src="/logo.png" alt="My logbook" width={200} height={80} />
+        <Image src="/logo-nav.png" alt="Logo principal" width={200} height={80} />
       </Link>
     </div>
   )
