@@ -15,7 +15,7 @@ export function MainNav() {
         href={PageRoutes.HOME}
         className="p-4 flex items-center space-x-2 lg:mr-6"
       >
-        <Image src="/logo-nav.png" alt="Logo principal" width={80} height={80} />
+        <Image src="/logo-nav.png" alt="Logo principal" width={250} height={80} />
       </Link>
       <nav className="hidden items-center gap-4 text-sm lg:gap-6">
         {mainNavigationConfig.map(({ label, path, isVisible }) => (

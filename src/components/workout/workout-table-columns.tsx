@@ -19,25 +19,18 @@ export function useWorkoutColumns({
   const workoutColumns: ColumnDef<WorkoutListSchemaType>[] = [
     {
       accessorKey: 'name',
-      header: () => (
-        <DataTableColumnHeader title="Nome" className="flex w-52" />
-      ),
-      cell: ({ row }) => (
-        <div className="flex w-52">
-          <span>{row.original.name}</span>
-        </div>
-      ),
+      header: "Nome"
     },
     {
       accessorKey: 'date',
       header: () => (
-        <DataTableColumnHeader title="Data" className="flex w-52" />
+        <DataTableColumnHeader title="Data"/>
       ),
       cell: ({ row }) => (
-        <div className="flex w-52">
+        <div>
           <span>
             {row.original.date &&
-              format(new Date(row.original.date), 'PPPP', {
+              format(new Date(row.original.date), 'PPP', {
                 locale: ptBR,
               })}
           </span>

@@ -15,10 +15,7 @@ export function SelectedExerciseTable({ exercises }: Props) {
 
   return (
     <Card className="p-5">
-      <ScrollArea className="w-52 md:w-full whitespace-nowrap">
-        <DataTable columns={selectedExerciseColumns} data={exercises} />
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+      <DataTable columns={selectedExerciseColumns} data={exercises} />
     </Card>
   )
 }

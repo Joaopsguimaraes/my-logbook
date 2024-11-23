@@ -34,7 +34,7 @@ export const AddWorkoutDrawer = forwardRef<AddWorkoutDrawerRef>((_, ref) => {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent>
+      <SheetContent className='w-full overflow-hidden overflow-y-auto'>
         <SheetHeader>
           <SheetTitle>
             {workoutId ? 'Duplicar treino' : 'Adicionar treino'}

@@ -25,6 +25,7 @@ import { ExerciseForm } from '../exercise/exercise-form'
 import { SelectedExerciseTable } from '../exercise/exercise-list'
 import { useGetWorkoutFromId } from '@/hooks/use-get-workout-from-id'
 import { SheetClose, SheetFooter } from '../ui/sheet'
+import Loading from '@/app/loading'
 
 interface Props {
   onModalClose: (open: boolean) => void
@@ -64,38 +65,44 @@ export function AddWorkoutForm({ onModalClose, workoutId }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} className="space-y-2">
-        <FormField
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nome do treino</FormLabel>
-              <FormControl>
-                <Input placeholder="Ex.: Treino de pernas" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="flex w-full flex-col gap-5">
-          <ExerciseForm />
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium">Exercícios selecionados</span>
-            <SelectedExerciseTable exercises={selectedExercises} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <form onSubmit={onSubmit} className="space-y-2">
+          <FormField
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nome do treino</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ex.: Treino de pernas" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex w-full flex-col gap-5">
+            <ExerciseForm />
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-medium">
+                Exercícios selecionados
+              </span>
+              <SelectedExerciseTable exercises={selectedExercises} />
+            </div>
           </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="button" variant="outline">
-              Cancelar
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button type="button" variant="outline">
+                Cancelar
+              </Button>
+            </SheetClose>
+            <Button variant="default" type="submit">
+              Adicionar
             </Button>
-          </SheetClose>
-          <Button variant="default" type="submit">
-            Adicionar
-          </Button>
-        </SheetFooter>
-      </form>
+          </SheetFooter>
+        </form>
+      )}
     </Form>
   )
 }
