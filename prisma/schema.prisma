@@ -8,26 +8,33 @@ datasource db {
 }
 
 model Workout {
-  id          String     @id @default(uuid())
-  userId      String
-  name        String
-  hasProgress Boolean
-  exercises   Exercise[]
-  date        DateTime
+  id        String     @id @default(uuid())
+  userId    String
+  name      String
+  exercises Exercise[] @relation("WorkoutExercises")
+  date      DateTime?
 }
 
 model Exercise {
-  id            String      @id @default(uuid())
-  name          String
-  userId        String
-  exerciseImage String
-  muscleGroup   MuscleGroup
-  weight        Float
-  reps          Int
-  annotation    String
-  hasProgress   Boolean
-  Workout       Workout?    @relation(fields: [workoutId], references: [id])
-  workoutId     String?
+  id               String         @id @default(uuid())
+  userId           String
+  weight           Float
+  name             String
+  reps             Int
+  series           Int
+  annotation       String
+  muscleGroup      MuscleGroup
+  muscleExercise   MuscleExercise @relation(fields: [muscleExerciseId], references: [id])
+  workout          Workout[]      @relation("WorkoutExercises")
+  workoutId        String?
+  muscleExerciseId String
+}
+
+model MuscleExercise {
+  id       String     @id @default(uuid())
+  name     String     @unique
+  imageUrl String?    @map("image_url")
+  Exercise Exercise[]
 }
 
 enum MuscleGroup {

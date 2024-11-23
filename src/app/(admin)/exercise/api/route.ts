@@ -9,11 +9,7 @@ export async function GET() {
     throw Error('User not logged')
   }
 
-  const exercises = await db.exercise.findMany({
-    where: {
-      userId,
-    },
-  })
+  const exercises = await db.exercise.findMany({})
 
   return NextResponse.json(exercises)
 }
