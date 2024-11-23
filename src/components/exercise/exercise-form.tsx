@@ -47,7 +47,10 @@ export function ExerciseForm() {
 
   return (
     <div className="flex w-full flex-col gap-5">
-      <SelectExerciseCombobox />
+      <SelectExerciseCombobox
+        exerciseForm={exerciseForm}
+        updateField={updateField}
+      />
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium">Grupo muscular</span>
         <Select
@@ -72,7 +75,7 @@ export function ExerciseForm() {
           <Label>Series</Label>
           <Input
             type="number"
-            inputMode='numeric'
+            inputMode="numeric"
             placeholder="Ex.: 3"
             value={exerciseForm.exerciseSeries}
             onChange={(e) => updateField('exerciseSeries', e.target.value)}
@@ -82,7 +85,7 @@ export function ExerciseForm() {
           <Label>Repetições</Label>
           <Input
             type="number"
-            inputMode='numeric'
+            inputMode="numeric"
             placeholder="Ex.: 10"
             value={exerciseForm.exerciseReps}
             onChange={(e) => updateField('exerciseReps', e.target.value)}
@@ -92,7 +95,7 @@ export function ExerciseForm() {
           <Label>Peso (KG)</Label>
           <Input
             type="number"
-            inputMode='numeric'
+            inputMode="numeric"
             placeholder="Ex.: 120"
             value={exerciseForm.exerciseWeight}
             onChange={(e) => updateField('exerciseWeight', e.target.value)}

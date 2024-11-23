@@ -1,7 +1,11 @@
 import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { useExerciseForm } from '@/hooks/useExerciseForm'
+import {
+  useExerciseForm,
+  type ExerciseFormType,
+  type UpdateField,
+} from '@/hooks/useExerciseForm'
 import { useExercise } from '@/hooks/useExercise'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import {
@@ -16,8 +20,12 @@ import { Skeleton } from '../ui/skeleton'
 import { useState } from 'react'
 import { PopoverClose } from '@radix-ui/react-popover'
 
-export function SelectExerciseCombobox() {
-  const { exerciseForm, updateField } = useExerciseForm()
+interface Props {
+  exerciseForm: ExerciseFormType
+  updateField: UpdateField
+}
+
+export function SelectExerciseCombobox({ exerciseForm, updateField }: Props) {
   const {
     muscleExercisesOptions,
     addMuscleExercise,
@@ -25,11 +33,12 @@ export function SelectExerciseCombobox() {
     isLoadingRegisterMuscleExercise,
   } = useExercise()
   const [registerExercise, setRegisterExercise] = useState('')
+  const [openPopover, setOpenPopover] = useState<boolean>(false)
 
   return (
     <div className="flex w-full flex-col gap-2">
       <span className="text-sm font-medium">Exercício</span>
-      <Popover>
+      <Popover open={openPopover} onOpenChange={setOpenPopover}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
@@ -46,7 +55,11 @@ export function SelectExerciseCombobox() {
             <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[300px] p-0" side="bottom" avoidCollisions={false}>
+        <PopoverContent
+          className="w-[300px] p-0"
+          side="bottom"
+          avoidCollisions={false}
+        >
           <Command>
             <CommandInput
               placeholder="Pesquise o exercício..."
@@ -91,19 +104,18 @@ export function SelectExerciseCombobox() {
                       onSelect={() => {
                         updateField('exerciseName', label)
                         updateField('exerciseId', value)
+                        setOpenPopover(false)
                       }}
                     >
-                      <PopoverClose className='w-full flex justify-between items-center'>
-                        {label}
-                        <Check
-                          className={cn(
-                            'ml-auto',
-                            exerciseForm.exerciseId === value
-                              ? 'opacity-100'
-                              : 'opacity-0',
-                          )}
-                        />
-                      </PopoverClose>
+                      {label}
+                      <Check
+                        className={cn(
+                          'ml-auto',
+                          exerciseForm.exerciseId === value
+                            ? 'opacity-100'
+                            : 'opacity-0',
+                        )}
+                      />
                     </CommandItem>
                   ))}
                 </CommandGroup>

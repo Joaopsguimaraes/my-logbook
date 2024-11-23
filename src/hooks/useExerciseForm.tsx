@@ -2,8 +2,20 @@ import { useState, useCallback } from 'react'
 import { produce } from 'immer'
 import type { MuscleGroup } from '@prisma/client'
 
+export type ExerciseFormType = {
+  exerciseId: string | undefined
+  exerciseName: string | undefined
+  exerciseMuscleGroup: MuscleGroup | undefined
+  exerciseWeight: string
+  exerciseSeries: string
+  exerciseReps: string
+  exerciseAnnotation: string
+}
+
+export type UpdateField = (field: keyof ExerciseFormType, value: any) => void
+
 export function useExerciseForm() {
-  const [exerciseForm, setExerciseForm] = useState({
+  const [exerciseForm, setExerciseForm] = useState<ExerciseFormType>({
     exerciseId: undefined as string | undefined,
     exerciseName: undefined as string | undefined,
     exerciseMuscleGroup: undefined as MuscleGroup | undefined,
